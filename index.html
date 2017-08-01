@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Shopping cart UI with slick.js</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel='stylesheet prefetch' href='https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick-theme.css'>
+<link rel='stylesheet prefetch' href='https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css'>
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+<link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Nunito:700'>
+
+      <link rel="stylesheet" href="css/style.css">
+
+  
+</head>
+
+<body>
+  
+<div id="app" v-cloak="v-cloak">
+  <div class="board">
+    <nav>
+      <h1>{{title}}</h1><i class="fa fa-shopping-cart" @click="show(neaten_slick)" aria-hidden="true"></i>
+    </nav>
+    <div class="items">
+      <div class="item" v-for="(item,index) in items">
+        <div class="img" :style="{backgroundImage:'url('+ item.url +')'}"></div>
+        <p class="name">{{item.name}}<span class="price">${{item.price}}</span></p><i class="add fa fa-plus-square" @click="plus(index)" aria-hidden="true"> </i><span>{{item.bought}}</span><i class="minus fa fa-minus-square" @click="minus(index)" aria-hidden="true"></i>
+      </div>
+    </div>
+  </div>
+  <div class="checkout"><i class="cross fa fa-times" @click="close" aria-hidden="true"></i>
+    <div class="boxes">
+      <div class="cart">
+        <h4>CART</h4>
+        <ul class="stuff">
+          <li v-for="(item,index) in items" v-if="item.show">
+            <div class="img" :style="{backgroundImage:'url('+ item.url +')'}"></div>
+            <div class="detail">
+              <p class="name">{{item.name}}</p>
+              <p class="price">${{item.price}}</p><i class="add fa fa-plus-square" @click="plus(index)" aria-hidden="true"></i><span>{{item.bought}}</span><i class="minus fa fa-minus-square" @click="minus(index)" aria-hidden="true"></i>
+            </div>
+          </li>
+        </ul>
+        <p class="shipping">+ Shipping ${{shipping}}</p>
+        <p class="total">Total ${{total}}</p>
+      </div>
+      <div class="details">
+        <div class="card">
+          <h3>Credit Card</h3>
+          <p class="card-num">{{card.card_number}}</p>
+          <div><span class="expires">{{card.expires}}</span><span class="ccv">{{card.ccv}}</span></div>
+          <p class="card-holder">{{card.card_holder}}</p>
+        </div>
+        <form class="detail">
+          <div class="item">
+            <p>Card number</p>
+            <input type="number" v-model="card.card_number"/>
+          </div>
+          <div class="item">
+            <p>Card holder</p>
+            <input type="text" v-model="card.card_holder"/>
+          </div>
+          <div class="item">
+            <p>Expires</p>
+            <input type="month" v-model="card.expires"/>
+          </div>
+          <div class="item">
+            <p>ccv</p>
+            <input type="number" v-model="card.ccv"/>
+          </div>
+          <input class="submit" type="submit" value="Checkout!"/>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js'></script>
+
+    <script src="js/index.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+#app(v-cloak)
+  .board
+    nav
+      h1 {{title}}
+      i(@click="show(neaten_slick)" class="fa fa-shopping-cart" aria-hidden="true")
+    .items
+      .item(v-for="(item,index) in items")
+        .img(:style="{backgroundImage:'url('+ item.url +')'}")
+        p.name {{item.name}}
+          span.price ${{item.price}}
+        i.add(@click="plus(index)" class="fa fa-plus-square" aria-hidden="true") 
+        span {{item.bought}}
+        i.minus(@click="minus(index)" class="fa fa-minus-square" aria-hidden="true")
+  .checkout
+    i.cross(@click="close" class="fa fa-times" aria-hidden="true")
+    .boxes
+      .cart
+        h4 CART
+        ul.stuff
+          li(v-for="(item,index) in items" v-if="item.show")
+            .img(:style="{backgroundImage:'url('+ item.url +')'}")
+            .detail
+              p.name {{item.name}}
+              p.price ${{item.price}}
+              i.add(@click="plus(index)" class="fa fa-plus-square" aria-hidden="true")
+              span {{item.bought}}
+              i.minus(@click="minus(index)" class="fa fa-minus-square" aria-hidden="true")
+        p.shipping + Shipping ${{shipping}}
+        p.total Total ${{total}}
+      .details
+        .card
+          h3 Credit Card
+          p.card-num {{card.card_number}}
+          div
+            span.expires {{card.expires}}
+            span.ccv {{card.ccv}}
+          p.card-holder {{card.card_holder}}
+        form.detail
+          .item
+            p Card number
+            input(type="number" v-model="card.card_number")
+          .item
+            p Card holder
+            input(type="text" v-model="card.card_holder")
+          .item
+            p Expires
+            input(type="month" v-model="card.expires")
+          .item
+            p ccv
+            input(type="number" v-model="card.ccv") 
+          input(type="submit" value="Checkout!" class="submit")
+        
