@@ -1,0 +1,332 @@
+$brown: rgb(61, 31, 14)
+$red: rgb(255, 51, 0)
+$orange: rgb(242, 168, 65)
+
+$breakpoints: ("phone":400px,"phone-wide":480px,"phablet":560px,"tablet-small": 640px,"tablet":768px,"tablet-wide":1024px,"desktop":1248px,"desktop-wide": 1440px)
+
+@mixin mq($width, $type: min)
+  @if map_has_key($breakpoints, $width)
+    $width: map_get($breakpoints, $width)
+    @if $type == max
+      $width: $width - 1px
+    @media only screen and (#{$type}-width: $width)
+      @content
+
+%mediumFont
+  font-size: 1.4em
+%bigFont
+  font-size: 2em
+%smallFont
+  font-size: 1.1em
+%bg
+  background-size: contain
+  background-repeat: no-repeat
+  background-position: 50% 50%
+
+%shadow
+  -webkit-filter: drop-shadow(5px 5px 3px rgba(0, 0, 0,.5))
+  filter: drop-shadow(5px 5px 3px rgba(0, 0, 0,.5))
+
+@mixin keyframes($animation-name)
+  @-webkit-keyframes #{$animation-name}
+    @content
+  @-moz-keyframes #{$animation-name}
+    @content
+  @-ms-keyframes #{$animation-name}
+    @content
+  @-o-keyframes #{$animation-name}
+    @content
+  @keyframes #{$animation-name}
+    @content
+
+@mixin animation($str)
+  -webkit-animation: #{$str}
+  -moz-animation: #{$str}
+  -ms-animation: #{$str}
+  -o-animation: #{$str}
+  animation: #{$str}
+ 
+[cloak]
+  display: none
+
+*
+  // border: solid 1px
+  position: relative
+  box-sizing: border-box
+  font-family: Nunito, 微軟正黑體
+  color: $brown
+  
+body,html
+  width: 100%
+  height: 100%
+  overflow-x: hidden
+  padding: 0
+  margin: 0
+
+#app
+  position: absolute
+  width: 80%
+  left: 50%
+  transform: translateX(-50%) translateY(10%)
+  border-radius: 1em
+  overflow: hidden
+  background-image: url(https://s6.postimg.org/yrm1jn9q9/chopping-board-1917996_1920.jpg)
+  background-size: 100% 100%
+  background-repeat: no-repeat
+  & .board
+    width: 100%
+    height: 100%
+    background-image: url(https://s6.postimg.org/yrm1jn9q9/chopping-board-1917996_1920.jpg)
+    background-size: 100% 100%
+    background-repeat: no-repeat
+    & nav
+      margin: 0em 2em
+      padding-top: 1em
+      display: flex
+      & h1
+        margin: 0
+        color: #fff
+        font-family: Verdana
+      & i
+        @extend %bigFont
+        height: 7vh
+        cursor: pointer
+        position: absolute
+        left: 100%
+        transform: translateX(-100%)
+        color: #fff
+        &:hover
+          color: $red
+
+.slick-initialized
+  visibility: visible      
+
+.items
+  display: flex
+  flex-wrap: wrap
+  text-align: center
+  height: 70vh
+  visibility: hidden
+.slick-initialized
+  visibility: visible  
+  & .item
+    & .img
+      height: 50vh
+      @extend %bg
+      @extend %shadow
+    & p
+      margin: 0
+      @extend %mediumFont
+      margin-bottom: 0.3em
+      color: $brown
+      & span
+        font-size: 1em
+        padding: 0
+        padding-left: 0.3em
+        color: $red
+    & span
+      @extend %mediumFont
+      padding: 0 0.5em
+      color: $brown
+    & .add,.minus
+      @extend %mediumFont
+      cursor: pointer
+      &:hover
+        color: $red
+      
+.checkout
+  +animation(fadeIn 1s 1)
+  filter: blur(0em)
+  position: absolute
+  width: 85%
+  height: 85%
+  left: 50%
+  top: 48%
+  transform: translateX(-50%) translateY(-50%)
+  background-color: rgba(255,255,255,0.7)
+  z-index: 1
+  border-radius: 1em
+  & .cross
+    position: absolute
+    left: 101%
+    top: -4%
+    color: white
+    font-weight: 500
+    cursor: pointer
+    @extend %mediumFont
+  & .boxes
+    filter: blur(0em)
+    visibility: hidden
+  & .slick-initialized
+    visibility: visible    
+    & .cart
+      padding: 1em
+      // width: 10vw
+      & h4
+        margin: 0
+      & p
+        text-align: right
+        margin: 0
+      & ul
+        list-style: none
+        display: flex
+        flex-wrap: wrap
+        height: 40vh
+        padding: 0
+        padding: 0.7em
+        overflow-y: auto
+        box-shadow: inset 0px 0px 10px 0px rgba(130, 119, 104,0.7)
+        & li
+          box-shadow: 1px 1px 10px 0px rgba(148,140,148,1)
+          border-radius: 0.1em
+          width: 100%
+          height: 15vh
+          display: flex
+          padding: 0.3em
+          & .detail
+            @extend %smallFont
+            width: 80%
+            text-align: right
+            & p
+              margin: 0
+          & .img
+            width: 20%
+            @extend %bg
+            @extend %shadow
+      & .shipping
+        border-bottom: solid 2px $brown
+        padding-bottom: 0.1em
+        width: 40%
+        margin-left: auto
+      & .total
+        color: $red
+        font-weight: 700
+        @extend %mediumFont
+    & .details
+      padding: 1em
+      & .card
+        width: 45%
+        height: 30vh
+        margin: auto
+        border-radius: 1em
+        padding: 1em
+        background-image: url(https://s6.postimg.org/gt5mb0ttt/background-1932466_1920.jpg)
+        background-size: 100% 100%
+        box-shadow: 0px 2px 3px rgba(107, 75, 31,0.7)
+        white-space: nowrap
+        & h3
+          margin: 0
+          color: #fff
+          text-align: right
+        & .card-num
+          color: #fff
+          margin-bottom: 5%
+          font-size: 1.4em
+        & div
+          & .expires
+            color: #fff
+          & .ccv
+            color: #fff
+            position: absolute
+            left: 100%
+            transform: translateX(-100%)
+        & .card-holder
+          color: #fff
+          margin-top: -0.01em    
+      & form
+        width: 100%
+        margin: auto
+        display: flex
+        flex-wrap: wrap
+        margin-top: 1em
+        & .item
+          width: 45%
+          margin: 0.2em auto
+          & input
+            width: 90%
+            margin-right: 0.5em
+          & p
+            margin: 0
+        & .submit
+          width: 35%
+          padding: 0.2em
+          border: solid 0px
+          border-radius: 1em
+          margin: auto
+          color: $brown
+          background-color: $orange
+          margin-top: 1em
+          font-weight: 700
+          @extend %smallFont
+          &:hover
+            color: $red
+          
+
+input
+  background-color: rgba(0,0,0,0)
+  border: solid 0px
+  border-bottom: solid 2px
+
+//animation
++keyframes(fadeIn)
+  0%
+    opacity: 0
+    top: 55%
+  100%
+    opacity: 1
+    top: 48%
+  
+//mq
++mq('phone-wide',max)
+  %mediumFont
+    font-size: 1.3em
+  #app
+    width: 100vw
+    height: 91vh
+    left: 0
+    transform: translateX(0%) translateY(0%)
+    border-radius: 0
+    & .board
+      background-size: 110% 110%
+      background-position: 55% 55%
+      & .items
+        height: 65vh
+        & .item
+          padding-top: 1.3em
+          & .img
+            width: 77%
+            height: 46vh
+            margin: auto
+            
+      & nav
+        margin: 0em 3.2em
+        padding-top: 2.3em
+    & .checkout
+      min-height: 400px
+      & .boxes
+        & .details
+          & .card
+            width: 80%
+            height: 22vh
+            font-size: 0.8em
+          & form
+            & .item
+              width: 75%
+              & input
+                width: 100%
+                margin: 0
+            & .submit
+              width: 65%
+              padding: 0.3em
+        & .cart
+          & .shipping
+            width: 50%
+          & .total
+            
+          & ul
+            & li
+              & .img
+                width: 30%
+  
+    
+    
